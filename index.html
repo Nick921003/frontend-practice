@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>我的第一個網頁</title>
+    <!-- 引入 Vue 3 全域版本 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #85bff9;
+            /* 使用 flexbox 置中內容 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #5005a5;
+        }
+        p {
+            color: #b11818;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>歡迎來到我的網站</h1>
+    <p>這是一個 HTML 教學範例。</p>
+    <a href="https://www.google.com">前往 Google</a>
+
+    <!-- 純 JavaScript 範例按鈕 -->
+    <button id="btn">點我（純 JS）</button>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", function() {
+            alert("按鈕被點擊！");
+        });
+    </script>
+
+    <!-- Vue 範例：輸入訊息並改變 -->
+    <div id="app" style="margin-top:40px; text-align:center;">
+        <h1>{{ message }}</h1>
+        <input v-model="inputValue" type="text" placeholder="輸入你想變改的訊息" style="padding: 8px; font-size: 16px;">
+        <br><br>
+        <button @click="changeMessage" style="padding: 10px 20px; font-size: 16px;">點我改變訊息（Vue）</button>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    message: "Hello Vue!",
+                    inputValue: ""
+                };
+            },
+            methods: {
+                changeMessage() {
+                    if (this.inputValue.trim()) {
+                        this.message = this.inputValue;
+                        this.inputValue = "";
+                    } else {
+                        alert("請輸入想變改的訊息！");
+                    }
+                }
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
