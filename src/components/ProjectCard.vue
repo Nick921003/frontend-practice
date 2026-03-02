@@ -18,7 +18,7 @@
       <img 
         v-for="(img, index) in project.images" 
         :key="index" 
-        :src="img" 
+        :src="getImageUrl(img)" 
         :alt="project.title + ' 圖片'"
         loading="lazy"
         class="gallery-thumb"
@@ -34,7 +34,7 @@
       >
         <span class="close-btn">&times;</span>
         <img 
-          :src="selectedImage" 
+          :src="getImageUrl(selectedImage)" 
           class="lightbox-image" 
           alt="放大圖片" 
         />
@@ -65,6 +65,13 @@ const closeLightbox = () => {
   selectedImage.value = null
   // 修復：關閉燈箱時，恢復 body 滾動
   document.body.style.overflow = ''
+}
+// 🌟 新增這段：動態補齊 GitHub Pages 的子目錄路徑 🌟
+const getImageUrl = (path) => {
+  // 如果路徑開頭有斜線，先把它拿掉，避免產生雙斜線 (//)
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  // import.meta.env.BASE_URL 會自動抓取你在 vite.config.js 設定的 base
+  return import.meta.env.BASE_URL + cleanPath
 }
 </script>
 
