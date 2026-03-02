@@ -1,0 +1,46 @@
+[
+{
+    "id": "strawberry-agv",
+    "category": "Graduation Project",
+    "title": "草莓病蟲害辨識系統",
+    "period": "Senior Year",
+    "role": "System Architecture and Software Integration",
+    "skills": ["YOLOv11", "NVIDIA Jetson Nano", "Docker", "AWS", "Vue.js", "Django", "Celery", "Redis"],
+    "short_description": "整合自走車與雲端運算的端對端自動化監測系統，解決農業勞力短缺問題。",
+    "details": "負責軟硬體系統整合。硬體端採用麥克納姆輪與 NVIDIA Jetson Nano 打造全向自走車。軟體端為了解決邊緣運算算力不足的問題，採用 Docker 容器化部署於 AWS (EC2/S3)。並透過 Celery 非同步佇列技術解決資料傳輸瓶頸。本專題亦參與 114 學年度微星盃原力覺醒專題競賽。",
+    "images": [
+    "/images/AnyConv.com__poster.webp",
+    "/images/AnyConv.com__architecture-diagram.webp",
+    "/images/AnyConv.com__prove.webp",
+    "/images/AnyConv.com__plan.webp"
+    ]
+},
+{
+    "id": "tdu-internship",
+    "category": "Academic Exchange",
+    "title": "東京電機大學 (TDU) 參訪與實習",
+    "period": "2026 Winter",
+    "role": "Intern",
+    "skills": ["3D Modeling (Fusion 360)", "Silicone Casting", "Cross-cultural Communication"],
+    "short_description": "赴日進行為期一週的短期交流，實地觀摩日本工程哲學與 Monozukuri (造物) 精神。",
+    "details": "於 Endo Lab 進行實習，學習 Fusion 360 3D 建模、Bambu Lab A1 3D 列印操作，以及矽膠翻模技術。實習期間主要與日本學生進行深度交流，體驗跨國實驗室的嚴謹文化。",
+    "images": [
+    "/images/AnyConv.com__endolab1.webp",
+    "/images/AnyConv.com__endolab2.webp",
+    "/images/AnyConv.com__endolab3.webp"
+    ]
+},
+{
+    "id": "leadership-camp",
+    "category": "Extracurricular",
+    "title": "全英語領袖營 (English Leadership Camp)",
+    "period": "Sophomore Summer",
+    "role": "Group Leader",
+    "skills": ["Leadership", "Cross-cultural Communication", "Team Management"],
+    "short_description": "在全英語沉浸式環境中擔任小隊長，培養跨文化溝通與領導力。",
+    "details": "與一名美國夥伴共同帶領 6 名學員。在全英語環境下克服文化與語言隔閡，確保團隊任務順利推進，大幅提升了在多元環境下的溝通與領導能力。",
+    "images": [
+    "/images/AnyConv.com__Englishcamp.webp"
+    ]
+}
+]
