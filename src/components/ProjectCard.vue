@@ -1,15 +1,22 @@
 <template>
-  <div class="card">
+  <div class="card" data-aos="fade-up">
     <div class="card-header">
       <span class="category">{{ project.category }}</span>
-      <span class="period">{{ project.period }}</span>
+      <span class="period">
+        <Calendar class="icon-inline" :size="16" />
+        {{ project.period }}
+      </span>
     </div>
     <h2>{{ project.title }}</h2>
-    <p class="role">擔任角色：{{ project.role }}</p>
+    <p class="role">
+      <User class="icon-inline" :size="18" />
+      擔任角色：{{ project.role }}
+    </p>
     <p class="description">{{ project.details }}</p>
     
     <div class="skills">
       <span v-for="skill in project.skills" :key="skill" class="skill-tag">
+        <CheckCircle2 class="icon-inline" :size="14" />
         {{ skill }}
       </span>
     </div>
@@ -32,7 +39,7 @@
         class="lightbox-overlay" 
         @click="closeLightbox"
       >
-        <span class="close-btn">&times;</span>
+        <button aria-label="關閉圖片燈箱" class="close-btn">&times;</button>
         <img 
           :src="getImageUrl(selectedImage)" 
           class="lightbox-image" 
@@ -45,6 +52,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { getImageUrl } from '../utils.js'
+// 🌟 引入 Lucide 圖示
+import { User, Calendar, CheckCircle2 } from 'lucide-vue-next'
 
 defineProps({
   project: {
@@ -57,99 +67,108 @@ const selectedImage = ref(null)
 
 const openLightbox = (imageUrl) => {
   selectedImage.value = imageUrl
-  // 修復：開啟燈箱時，禁止 body 滾動
   document.body.style.overflow = 'hidden'
 }
 
 const closeLightbox = () => {
   selectedImage.value = null
-  // 修復：關閉燈箱時，恢復 body 滾動
   document.body.style.overflow = ''
-}
-// 🌟 新增這段：動態補齊 GitHub Pages 的子目錄路徑 🌟
-const getImageUrl = (path) => {
-  // 如果路徑開頭有斜線，先把它拿掉，避免產生雙斜線 (//)
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path
-  // import.meta.env.BASE_URL 會自動抓取你在 vite.config.js 設定的 base
-  return import.meta.env.BASE_URL + cleanPath
 }
 </script>
 
 <style scoped>
-/* --- 原有卡片 CSS (保留) --- */
 .card {
   background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 16px; /* 稍微增加圓角，與首頁呼應 */
+  padding: 35px;
   margin-bottom: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(59, 130, 246, 0.3); /* Hover 時外框有一點點科技藍 */
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   font-size: 0.95em;
 }
 
 .category {
   font-weight: 700;
-  color: #3b82f6; 
+  color: var(--primary-color); 
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .period {
+  display: flex;
+  align-items: center;
   color: #888;
   font-weight: 500;
+  font-family: 'Poppins', sans-serif;
 }
 
 h2 {
-  margin: 0 0 12px 0;
-  color: #1f2937;
+  margin: 0 0 15px 0;
+  color: var(--text-main);
   font-size: 1.8em;
   line-height: 1.3;
+  letter-spacing: -0.5px;
 }
 
 .role {
+  display: flex;
+  align-items: center;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--text-main);
   margin-bottom: 16px;
 }
 
+/* 🌟 圖示垂直置中微調 */
+.icon-inline {
+  margin-right: 6px;
+  opacity: 0.75;
+}
+
 .description {
-  color: #4b5563;
-  line-height: 1.7;
-  margin-bottom: 24px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1.05em;
 }
 
 .skills {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .skill-tag {
-  background-color: #f3f4f6;
-  color: #374151;
-  padding: 6px 14px;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  color: #334155;
+  padding: 8px 16px;
+  border-radius: 30px;
   font-size: 0.85em;
-  font-weight: 600;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+  transition: all 0.2s;
+  border: 1px solid #e2e8f0;
 }
 
 .skill-tag:hover {
-  background-color: #e5e7eb;
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
 }
 
 .image-gallery {
@@ -163,17 +182,16 @@ h2 {
   width: 100%;
   height: 220px;
   object-fit: cover; 
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   cursor: zoom-in; 
 }
 
 .gallery-thumb:hover {
-  transform: scale(1.03); 
+  transform: scale(1.02); 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
-
-/* --- Lightbox CSS 升級：增加最高 z-index 並移除 scoped 限制 (Teleport後) --- */
 </style>
 
 <style>
@@ -187,10 +205,9 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* 🌟 將 z-index 提高到極高，確保在 Navbar 之上 */
   z-index: 2000; 
   cursor: zoom-out;
-  backdrop-filter: blur(10px); /* 增加背景模糊，讓圖片更立體 */
+  backdrop-filter: blur(10px);
   animation: fadeIn 0.3s ease;
 }
 
@@ -208,10 +225,13 @@ h2 {
   right: 30px;
   color: rgba(255,255,255,0.7);
   font-size: 50px;
-  font-weight: 200; /* 更纖細優雅的關閉按鈕 */
+  font-weight: 200;
   cursor: pointer;
   z-index: 2001;
   transition: color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .close-btn:hover {
