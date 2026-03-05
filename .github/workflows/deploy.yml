@@ -44,6 +44,10 @@ jobs:
             echo "::error::Missing VITE_SUPABASE_ANON_KEY secret"
             exit 1
           fi
+          if [[ ! "$VITE_SUPABASE_URL" =~ ^https://.*\.supabase\.co$ ]]; then
+            echo "::error::VITE_SUPABASE_URL looks invalid. Expected format: https://<project-ref>.supabase.co"
+            exit 1
+          fi
 
       - name: Build project
         run: npm run build

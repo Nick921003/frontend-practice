@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/AdminView.vue'
 
 const router = createRouter({
-  // 使用 import.meta.env.BASE_URL 確保在 GitHub Pages 上路徑也正確
-  history: createWebHistory(import.meta.env.BASE_URL),
+  // GitHub Pages 為靜態主機，使用 hash 模式可避免重新整理 /admin 時 404
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
