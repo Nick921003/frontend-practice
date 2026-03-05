@@ -12,7 +12,9 @@
       <User class="icon-inline" :size="18" />
       擔任角色：{{ project.role }}
     </p>
+    <p class="short-description">{{ project.short_description }}</p>
     <p class="description">{{ project.details }}</p>
+  
     
     <div class="skills">
       <span v-for="skill in project.skills" :key="skill" class="skill-tag">
@@ -130,6 +132,15 @@ h2 {
   font-weight: 600;
   color: var(--text-main);
   margin-bottom: 16px;
+}
+.short-description {
+  font-size: 1.05em;
+  font-weight: 600;
+  color: #3b82f6; /* 使用主色調突顯重點 */
+  margin-bottom: 12px;
+  line-height: 1.5;
+  border-left: 3px solid #bfdbfe;
+  padding-left: 10px;
 }
 
 /* 🌟 圖示垂直置中微調 */
