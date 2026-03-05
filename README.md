@@ -9,9 +9,9 @@ A fast, responsive, and purely static personal portfolio built with Vue 3 and Vi
 * **Styling:** Custom CSS (RWD, CSS Grid/Flexbox)
 
 ## 📂 Featured Experiences
-* **Strawberry Pest and Disease Identification System:** An End-to-End automated AGV system to address agricultural labor shortages. [cite_start]Integrated NVIDIA Jetson Nano with Mecanum wheels, Docker, AWS (EC2/S3), Django, and Celery for asynchronous cloud processing [cite: 339-348, 410-463].
-* [cite_start]**Tokyo Denki University (TDU) Internship:** A short-term academic exchange at Endo Lab, focusing on Fusion 360 3D modeling, silicone casting, and observing the Japanese engineering philosophy of *Monozukuri* [cite: 54-56, 489-493].
-* [cite_start]**English Leadership Camp:** Served as a Group Leader in a full English immersion environment, honing cross-cultural communication and team management skills [cite: 58-59, 407-409].
+* **Strawberry Pest and Disease Identification System:** An End-to-End automated AGV system to address agricultural labor shortages. Integrated NVIDIA Jetson Nano with Mecanum wheels, Docker, AWS (EC2/S3), Django, and Celery for asynchronous cloud processing [cite: 339-348, 410-463].
+* **Tokyo Denki University (TDU) Internship:** A short-term academic exchange at Endo Lab, focusing on Fusion 360 3D modeling, silicone casting, and observing the Japanese engineering philosophy of *Monozukuri* [cite: 54-56, 489-493].
+* **English Leadership Camp:** Served as a Group Leader in a full English immersion environment, honing cross-cultural communication and team management skills [cite: 58-59, 407-409].
 
 ## 🛠️ Local Development
 
