@@ -159,6 +159,11 @@ const formData = ref({
 
 // --- 登入驗證 ---
 const checkSession = async () => {
+  if (!supabase) {
+    errorMessage.value = '尚未設定 Supabase 環境變數，請先完成部署設定。'
+    return
+  }
+
   const { data: { session } } = await supabase.auth.getSession()
   if (session) {
     isLoggedIn.value = true
@@ -167,6 +172,11 @@ const checkSession = async () => {
 }
 
 const handleLogin = async () => {
+  if (!supabase) {
+    errorMessage.value = '尚未設定 Supabase 環境變數，無法登入。'
+    return
+  }
+
   isLoading.value = true
   errorMessage.value = ''
   try {
@@ -183,6 +193,7 @@ const handleLogin = async () => {
 }
 
 const handleLogout = async () => {
+  if (!supabase) return
   await supabase.auth.signOut()
   isLoggedIn.value = false
 }
@@ -191,6 +202,8 @@ const handleLogout = async () => {
 
 // [Read] 讀取資料列表
 const fetchProjects = async () => {
+  if (!supabase) return
+
   isFetching.value = true
   try {
     const { data, error } = await supabase
@@ -209,6 +222,11 @@ const fetchProjects = async () => {
 
 // [Delete] 刪除資料
 const deleteProject = async (id) => {
+  if (!supabase) {
+    alert('尚未設定 Supabase 環境變數，無法刪除資料。')
+    return
+  }
+
   if (!confirm('確定要刪除這筆資料嗎？刪除後無法復原。')) return
 
   try {
@@ -260,6 +278,12 @@ const handleFileChange = (event) => {
 
 // [Create & Update] 提交表單核心邏輯
 const submitPortfolio = async () => {
+  if (!supabase) {
+    uploadStatus.value = '尚未設定 Supabase 環境變數，無法提交資料。'
+    isSuccess.value = false
+    return
+  }
+
   isSubmitting.value = true
   uploadStatus.value = '處理中...'
   isSuccess.value = true

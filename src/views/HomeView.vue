@@ -93,6 +93,11 @@ const portfolioData = ref([])
 
 // 🌟 從 Supabase 獲取真實資料的非同步函數
 const fetchPublicProjects = async () => {
+  if (!supabase) {
+    console.warn('Supabase 未設定，略過遠端資料讀取。')
+    return
+  }
+
   try {
     const { data, error } = await supabase
       .from('portfolio')
