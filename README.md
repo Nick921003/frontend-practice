@@ -2,6 +2,9 @@
 
 A fast, responsive, and purely static personal portfolio built with Vue 3 and Vite. [cite_start]This repository showcases my journey in hardware-software integration, cloud architecture, and cross-cultural academic experiences [cite: 41-71].
 
+## Live Site
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-2ea44f?style=for-the-badge&logo=github)](https://nick921003.github.io/frontend-practice/#/)
+
 ## 🚀 Tech Stack
 * **Framework:** Vue 3 (Composition API)
 * **Build Tool:** Vite
