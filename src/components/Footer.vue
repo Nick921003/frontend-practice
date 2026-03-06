@@ -40,10 +40,10 @@ const copyEmail = async () => {
 
 <style scoped>
 .footer {
-  margin-top: 60px;
-  padding: 40px 20px;
-  background-color: #fff;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 44px;
+  padding: 44px 20px 36px;
+  background: linear-gradient(180deg, rgba(255, 252, 245, 0.18), rgba(255, 252, 245, 0.72));
+  border-top: 1px solid var(--line);
   text-align: center;
 }
 
@@ -53,10 +53,12 @@ const copyEmail = async () => {
 }
 
 .footer-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.5em;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   color: var(--text-main);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .social-links {
@@ -72,18 +74,18 @@ const copyEmail = async () => {
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background-color: var(--bg-color);
+  background-color: rgba(255, 253, 248, 0.85);
   color: var(--text-main);
   border-radius: 30px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
-  font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+  border: 1px solid rgba(47, 93, 80, 0.24);
+  font-family: 'Manrope', 'Noto Serif TC', sans-serif;
 }
 
 .social-btn:hover {
-  background-color: #eff6ff;
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: #f9f3e8;
   transform: translateY(-2px);
 }
 
@@ -92,14 +94,14 @@ const copyEmail = async () => {
 }
 
 .email-btn.copied {
-  background-color: #ecfdf5;
-  color: #10b981;
-  border-color: #a7f3d0;
+  background-color: #2f5d50;
+  color: #f6f3ea;
+  border-color: #2f5d50;
 }
 
 .copyright {
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: var(--text-muted);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 </style>
