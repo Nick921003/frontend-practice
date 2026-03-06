@@ -12,10 +12,20 @@
       <User class="icon-inline" :size="18" />
       擔任角色：{{ project.role }}
     </p>
-    <p class="short-description">{{ project.short_description }}</p>
-    <p class="description">{{ project.details }}</p>
-  
     
+    <p class="short-description">{{ project.short_description }}</p>
+    
+    <div class="description-wrapper" :class="{ 'is-expanded': isExpanded }">
+      <p class="description" v-html="formattedDetails"></p>
+      <div v-if="!isExpanded" class="fade-overlay"></div>
+    </div>
+
+    <button class="expand-btn" @click="toggleExpand" aria-label="切換顯示完整內容">
+      {{ isExpanded ? '收起完整細節' : '閱讀完整細節' }}
+      <ChevronUp v-if="isExpanded" class="icon-inline ms-1" :size="16" />
+      <ChevronDown v-else class="icon-inline ms-1" :size="16" />
+    </button>
+  
     <div class="skills">
       <span v-for="skill in project.skills" :key="skill" class="skill-tag">
         <CheckCircle2 class="icon-inline" :size="14" />
@@ -53,17 +63,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { getImageUrl } from '../utils.js'
-// 🌟 引入 Lucide 圖示
-import { User, Calendar, CheckCircle2 } from 'lucide-vue-next'
+// 引入上下箭頭圖示
+import { User, Calendar, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-vue-next'
 
-defineProps({
+const props = defineProps({
   project: {
     type: Object,
     required: true
   }
 })
+
+// 控制文字展開與收合的狀態
+const isExpanded = ref(false)
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
+}
 
 const selectedImage = ref(null)
 
@@ -76,22 +93,32 @@ const closeLightbox = () => {
   selectedImage.value = null
   document.body.style.overflow = ''
 }
+
+const formattedDetails = computed(() => {
+  if (!props.project.details) return ''
+  
+  return props.project.details.replace(
+    /【(.*?)】/g, 
+    '<span class="highlight-title">【$1】</span><br>'
+  )
+})
 </script>
 
 <style scoped>
 .card {
   background-color: #ffffff;
-  border-radius: 16px; /* 稍微增加圓角，與首頁呼應 */
+  border-radius: 16px; 
   padding: 35px;
   margin-bottom: 40px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   border: 1px solid rgba(0,0,0,0.05);
+  text-align: left; 
 }
 
 .card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-  border-color: rgba(59, 130, 246, 0.3); /* Hover 時外框有一點點科技藍 */
+  border-color: rgba(59, 130, 246, 0.3); 
 }
 
 .card-header {
@@ -124,6 +151,7 @@ h2 {
   font-size: 1.8em;
   line-height: 1.3;
   letter-spacing: -0.5px;
+  text-align: left; 
 }
 
 .role {
@@ -132,28 +160,93 @@ h2 {
   font-weight: 600;
   color: var(--text-main);
   margin-bottom: 16px;
+  text-align: left;
 }
+
 .short-description {
   font-size: 1.05em;
   font-weight: 600;
-  color: #3b82f6; /* 使用主色調突顯重點 */
+  color: #3b82f6; 
   margin-bottom: 12px;
   line-height: 1.5;
   border-left: 3px solid #bfdbfe;
   padding-left: 10px;
+  text-align: left; 
 }
 
-/* 🌟 圖示垂直置中微調 */
 .icon-inline {
   margin-right: 6px;
   opacity: 0.75;
 }
 
+.ms-1 {
+  margin-left: 4px;
+  margin-right: 0;
+}
+
+/* 核心升級：文字收合外層容器 */
+.description-wrapper {
+  position: relative;
+  max-height: 120px; /* 摺疊時的預設高度，約顯示三行 */
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.description-wrapper.is-expanded {
+  max-height: 2000px; /* 展開時賦予足夠的空間容納長文 */
+}
+
 .description {
   color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 25px;
+  line-height: 1.85; 
+  margin-bottom: 0; /* 移除底部間距，交由外層控制 */
   font-size: 1.05em;
+  letter-spacing: 0.5px; 
+  white-space: pre-line; 
+  text-align: left; 
+}
+
+/* 底部漸層遮罩 */
+.fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  pointer-events: none;
+}
+
+/* 展開切換按鈕設計 */
+.expand-btn {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95em;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+  color: #2563eb;
+}
+
+:deep(.highlight-title) {
+  display: inline-block;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  background-color: #eff6ff; 
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.95em;
 }
 
 .skills {
