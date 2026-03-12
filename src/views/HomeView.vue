@@ -39,6 +39,39 @@
                 <p>相比於純粹的理論學習，我更著迷於「親自動手實作」的過程。從邊緣運算設備（如 NVIDIA Jetson Nano）的底層硬體組裝，到雲端架構（AWS, Docker）的系統部署，我喜歡將零散的技術元件，拼湊成能夠真正解決現實問題的自動化系統。</p>
                 <p>我相信，一名優秀的工程師不僅要懂理論，更要有從無到有的執行力。期待能持續在機器學習與系統架構領域深耕，用技術創造價值。</p>
               </div>
+
+              <div class="skills-showcase">
+                <h3 class="skills-title">Technical Skills</h3>
+                <div class="skills-group">
+                  <span class="group-label">語言與框架</span>
+                  <div class="skill-chips">
+                    <span class="chip">Python</span>
+                    <span class="chip">C</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">Vue.js</span>
+                    <span class="chip">Django</span>
+                  </div>
+                </div>
+                <div class="skills-group">
+                  <span class="group-label">雲端與系統</span>
+                  <div class="skill-chips">
+                    <span class="chip">Docker</span>
+                    <span class="chip">AWS</span>
+                    <span class="chip">Celery</span>
+                    <span class="chip">Redis</span>
+                    <span class="chip">PostgreSQL</span>
+                    <span class="chip">Supabase</span>
+                  </div>
+                </div>
+                <div class="skills-group">
+                  <span class="group-label">邊緣運算與硬體</span>
+                  <div class="skill-chips">
+                    <span class="chip">NVIDIA Jetson Nano</span>
+                    <span class="chip">YOLOv11</span>
+                    <span class="chip">Fusion 360</span>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div class="about-image-wrapper">
@@ -415,6 +448,78 @@ onUnmounted(() => {
 
   .about-image-wrapper {
     order: -1;
+  }
+}
+
+.skills-showcase {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(47, 93, 80, 0.2);
+}
+
+.skills-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin: 0 0 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.skills-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.group-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--primary-color);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chip:hover {
+  background-color: rgba(47, 93, 80, 0.08);
+  border-color: rgba(47, 93, 80, 0.35);
+  box-shadow: 0 6px 14px rgba(47, 93, 80, 0.12);
+  animation: chipBounce 0.35s ease;
+}
+
+@keyframes chipBounce {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-4px);
+  }
+  70% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 

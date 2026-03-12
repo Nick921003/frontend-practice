@@ -66,7 +66,16 @@
                 <label>使用技能 (Skills) - 請用逗號隔開</label>
                 <input v-model="formData.skills" type="text" placeholder="例：Vue.js, Docker, AWS" />
               </div>
-
+              <div class="form-row">
+                <div class="form-group half">
+                  <label>GitHub 連結 (選填)</label>
+                  <input v-model="formData.github_url" type="url" placeholder="https://github.com/..." />
+                </div>
+              <div class="form-group half">
+                <label>Demo 連結 (選填)</label>
+                <input v-model="formData.demo_url" type="url" placeholder="https://..." />
+              </div>
+            </div>
               <div class="form-group">
                 <label>簡短摘要 (Short Description) *</label>
                 <input v-model="formData.short_description" type="text" placeholder="一句話總結這個經歷的亮點" required />
@@ -154,7 +163,9 @@ const formData = ref({
   skills: '',
   short_description: '',
   details: '',
-  images: [] // 保留舊圖片用
+  images: [],
+  github_url: '',
+  demo_url: '' 
 })
 
 // --- 登入驗證 ---
@@ -254,7 +265,9 @@ const editProject = (project) => {
     skills: project.skills ? project.skills.join(', ') : '',
     short_description: project.short_description || '',
     details: project.details || '',
-    images: project.images || []
+    images: project.images || [],
+    github_url: project.github_url || '',
+    demo_url: project.demo_url || ''
   }
   selectedFiles.value = []
   uploadStatus.value = ''
@@ -319,7 +332,9 @@ const submitPortfolio = async () => {
       skills: skillsArray,
       short_description: formData.value.short_description,
       details: formData.value.details,
-      images: finalImageUrls
+      images: finalImageUrls,
+      github_url: formData.value.github_url,
+      demo_url: formData.value.demo_url
     }
 
     if (isEditing.value) {

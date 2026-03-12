@@ -33,6 +33,15 @@
       </span>
     </div>
 
+    <div class="project-links" v-if="project.github_url || project.demo_url">
+      <a v-if="project.github_url" :href="project.github_url" target="_blank" rel="noopener noreferrer" class="link-btn github-btn">
+        <Github class="icon-inline" :size="16" /> Source Code
+      </a>
+      <a v-if="project.demo_url" :href="project.demo_url" target="_blank" rel="noopener noreferrer" class="link-btn demo-btn">
+        <ExternalLink class="icon-inline" :size="16" /> Live Demo
+      </a>
+    </div>
+
     <div class="image-gallery">
       <img 
         v-for="(img, index) in project.images" 
@@ -66,7 +75,7 @@
 import { ref, computed } from 'vue'
 import { getImageUrl } from '../utils.js'
 // 引入上下箭頭圖示
-import { User, Calendar, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-vue-next'
+import { User, Calendar, CheckCircle2, ChevronDown, ChevronUp, Github, ExternalLink } from 'lucide-vue-next'
 
 const props = defineProps({
   project: {
@@ -278,6 +287,46 @@ h2 {
 
 .skill-tag:hover {
   background-color: rgba(215, 228, 223, 0.8);
+  transform: translateY(-2px);
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.github-btn {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #0f172a;
+}
+
+.github-btn:hover {
+  background-color: #334155;
+  transform: translateY(-2px);
+}
+
+.demo-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.demo-btn:hover {
+  background-color: rgba(47, 93, 80, 0.08);
   transform: translateY(-2px);
 }
 
