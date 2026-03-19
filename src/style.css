@@ -11,6 +11,58 @@
   --line: #d9d1c0;
   --card-shadow: 0 14px 40px rgba(48, 45, 32, 0.08);
 
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+
+  /* Radius scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* Typography scale */
+  --text-xs: 0.84rem;
+  --text-sm: 0.92rem;
+  --text-md: 1rem;
+  --text-lg: 1.08rem;
+  --text-xl: 1.32rem;
+  --text-2xl: clamp(1.7rem, 3.2vw, 2.4rem);
+  --text-display: clamp(2.1rem, 4.4vw, 3.25rem);
+  --text-card-title: clamp(1.45rem, 2.9vw, 2rem);
+
+  /* Motion / state */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+
+  /* Surface / interaction */
+  --surface-1: rgba(255, 253, 248, 0.82);
+  --surface-2: rgba(255, 253, 248, 0.96);
+  --surface-hover: rgba(47, 93, 80, 0.1);
+  --focus-ring: 0 0 0 2px rgba(47, 93, 80, 0.35);
+
+  /* Component tokens */
+  --btn-padding-y: 9px;
+  --btn-padding-x: 15px;
+  --btn-font-size: var(--text-sm);
+  --btn-font-weight: 600;
+  --btn-radius: var(--radius-pill);
+  --btn-transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
+  --card-radius: var(--radius-lg);
+  --card-padding: clamp(20px, 2.6vw, 34px);
+  --card-border: 1px solid var(--line);
+  --title-stack-gap-lg: var(--space-4);
+  --title-stack-gap-md: var(--space-3);
+  --title-stack-gap-sm: var(--space-2);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -44,6 +96,93 @@ textarea {
   font: inherit;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
 #app {
   width: 100%;
+}
+
+/* Reusable button system */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: var(--btn-radius);
+  border: 1px solid transparent;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--btn-transition);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  color: #f7f2e8;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  color: #f7f2e8;
+  background: #244b3f;
+  border-color: #244b3f;
+}
+
+.btn-ghost {
+  color: var(--text-muted);
+  background: transparent;
+  border-color: rgba(47, 93, 80, 0.2);
+}
+
+.btn-ghost:hover {
+  color: var(--primary-color);
+  background: var(--surface-hover);
+}
+
+/* Title hierarchy system */
+.heading-1,
+.heading-2,
+.heading-3 {
+  margin: 0;
+  color: var(--text-main);
+  letter-spacing: 0.02em;
+}
+
+.heading-1 {
+  font-size: var(--text-display);
+  line-height: 1.06;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 700;
+  margin-bottom: var(--title-stack-gap-md);
+}
+
+.heading-2 {
+  font-size: var(--text-2xl);
+  line-height: 1.2;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 700;
+  margin-bottom: var(--title-stack-gap-md);
+}
+
+.heading-3 {
+  font-size: var(--text-card-title);
+  line-height: 1.26;
+  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-weight: 700;
+  margin-bottom: var(--title-stack-gap-sm);
 }

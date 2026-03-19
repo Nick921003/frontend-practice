@@ -7,7 +7,7 @@
         {{ project.period }}
       </span>
     </div>
-    <h2>{{ project.title }}</h2>
+    <h2 class="card-title heading-3">{{ project.title }}</h2>
     <p class="role">
       <User class="icon-inline" :size="18" />
       擔任角色：{{ project.role }}
@@ -20,7 +20,7 @@
       <div v-if="!isExpanded" class="fade-overlay"></div>
     </div>
 
-    <button class="expand-btn" @click="toggleExpand" aria-label="切換顯示完整內容">
+    <button class="btn btn-ghost expand-btn" @click="toggleExpand" aria-label="切換顯示完整內容">
       {{ isExpanded ? '收起完整細節' : '閱讀完整細節' }}
       <ChevronUp v-if="isExpanded" class="icon-inline ms-1" :size="16" />
       <ChevronDown v-else class="icon-inline ms-1" :size="16" />
@@ -34,10 +34,10 @@
     </div>
 
     <div class="project-links" v-if="project.github_url || project.demo_url">
-      <a v-if="project.github_url" :href="project.github_url" target="_blank" rel="noopener noreferrer" class="link-btn github-btn">
+      <a v-if="project.github_url" :href="project.github_url" target="_blank" rel="noopener noreferrer" class="btn btn-primary link-btn github-btn">
         <Github class="icon-inline" :size="16" /> Source Code
       </a>
-      <a v-if="project.demo_url" :href="project.demo_url" target="_blank" rel="noopener noreferrer" class="link-btn demo-btn">
+      <a v-if="project.demo_url" :href="project.demo_url" target="_blank" rel="noopener noreferrer" class="btn btn-ghost link-btn demo-btn">
         <ExternalLink class="icon-inline" :size="16" /> Live Demo
       </a>
     </div>
@@ -116,12 +116,12 @@ const formattedDetails = computed(() => {
 <style scoped>
 .card {
   margin-bottom: 28px;
-  padding: clamp(20px, 2.6vw, 34px);
-  border-radius: 20px;
-  border: 1px solid var(--line);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  border: var(--card-border);
   background: linear-gradient(140deg, rgba(255, 253, 248, 0.96), rgba(250, 245, 234, 0.88));
   box-shadow: 0 12px 28px rgba(52, 48, 36, 0.09);
-  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  transition: transform var(--duration-base) ease, box-shadow var(--duration-base) ease, border-color var(--duration-base) ease;
   text-align: left;
 }
 
@@ -134,11 +134,11 @@ const formattedDetails = computed(() => {
 .card-header {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--space-3);
   flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 12px;
-  font-size: 0.9rem;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
 }
 
 .category {
@@ -154,16 +154,13 @@ const formattedDetails = computed(() => {
   align-items: center;
   color: var(--text-muted);
   font-weight: 500;
+  font-size: var(--text-sm);
 }
 
-h2 {
+.card-title {
   margin: 0 0 10px;
   color: var(--text-main);
-  font-size: clamp(1.45rem, 2.9vw, 2rem);
-  line-height: 1.26;
-  letter-spacing: 0.01em;
   text-align: left;
-  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
 }
 
 .role {
@@ -176,13 +173,13 @@ h2 {
 }
 
 .short-description {
-  font-size: 1.03rem;
+  font-size: var(--text-md);
   font-weight: 600;
   color: #47695c;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-3);
   line-height: 1.5;
   border-left: 3px solid rgba(47, 93, 80, 0.4);
-  padding-left: 12px;
+  padding-left: var(--space-3);
   text-align: left;
 }
 
@@ -229,20 +226,14 @@ h2 {
 }
 
 .expand-btn {
-  display: flex;
-  align-items: center;
   gap: 2px;
-  background: transparent;
-  border: 1px solid rgba(47, 93, 80, 0.28);
-  border-radius: 999px;
   color: var(--primary-color);
-  font-weight: 600;
-  font-size: 0.92rem;
-  cursor: pointer;
-  padding: 8px 14px;
+  border-color: rgba(47, 93, 80, 0.28);
+  background: transparent;
+  border-radius: var(--radius-pill);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
   margin-top: 8px;
   margin-bottom: 25px;
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .expand-btn:hover {
@@ -277,11 +268,11 @@ h2 {
   background-color: rgba(236, 229, 216, 0.65);
   color: #3a4a43;
   padding: 7px 14px;
-  border-radius: 30px;
-  font-size: 0.84rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
   font-weight: 500;
   font-family: 'Manrope', 'Noto Serif TC', sans-serif;
-  transition: all 0.2s;
+  transition: all var(--duration-fast) ease;
   border: 1px solid rgba(47, 93, 80, 0.18);
 }
 
@@ -297,15 +288,9 @@ h2 {
 }
 
 .link-btn {
-  display: inline-flex;
-  align-items: center;
   padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 0.88rem;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
   font-family: 'Manrope', sans-serif;
-  transition: all 0.2s ease;
-  text-decoration: none;
 }
 
 .github-btn {

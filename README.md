@@ -1,28 +1,89 @@
 # Chun-Wei Peng | Personal Portfolio
 
-A fast, responsive, and purely static personal portfolio built with Vue 3 and Vite. [cite_start]This repository showcases my journey in hardware-software integration, cloud architecture, and cross-cultural academic experiences [cite: 41-71].
+This is a responsive personal portfolio built with Vue 3 + Vite.
+It includes a public showcase frontend and an optional admin CMS backed by Supabase.
 
 ## Live Site
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-2ea44f?style=for-the-badge&logo=github)](https://nick921003.github.io/frontend-practice/#/)
 
-## 🚀 Tech Stack
-* **Framework:** Vue 3 (Composition API)
-* **Build Tool:** Vite
-* **Deployment:** GitHub Pages (via GitHub Actions CI/CD)
-* **Styling:** Custom CSS (RWD, CSS Grid/Flexbox)
+## Core Features
+- Responsive portfolio homepage (About / Portfolio / Experience)
+- Multi-language toggle (Chinese / English)
+- Image gallery with lightbox preview
+- Admin panel for content CRUD
+- Supabase Auth login and Supabase Storage image upload
+- AOS scroll animations
 
-## 📂 Featured Experiences
-* **Strawberry Pest and Disease Identification System:** An End-to-End automated AGV system to address agricultural labor shortages. Integrated NVIDIA Jetson Nano with Mecanum wheels, Docker, AWS (EC2/S3), Django, and Celery for asynchronous cloud processing [cite: 339-348, 410-463].
-* **Tokyo Denki University (TDU) Internship:** A short-term academic exchange at Endo Lab, focusing on Fusion 360 3D modeling, silicone casting, and observing the Japanese engineering philosophy of *Monozukuri* [cite: 54-56, 489-493].
-* **English Leadership Camp:** Served as a Group Leader in a full English immersion environment, honing cross-cultural communication and team management skills [cite: 58-59, 407-409].
+## Tech Stack
+- Framework: Vue 3 (Composition API)
+- Build Tool: Vite
+- Router: Vue Router (hash mode for GitHub Pages)
+- Backend Service: Supabase (Auth, Database, Storage)
+- Styling: Custom CSS design tokens + component styles
+- Deployment: GitHub Pages via GitHub Actions
 
-## 🛠️ Local Development
+## Project Structure
+```text
+src/
+	components/
+		ProjectCard.vue
+		Footer.vue
+	views/
+		HomeView.vue
+		AdminView.vue
+	router/
+		index.js
+	supabase.js
+	style.css
+```
 
-Clone the repository and install dependencies:
+## Local Development
 
+1. Install dependencies
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start local development server
+2. (Optional) Create environment file for Supabase-enabled features
+```bash
+# .env.local
+VITE_SUPABASE_URL=https://<your-project-ref>.supabase.co
+VITE_SUPABASE_ANON_KEY=<your-anon-key>
+```
+
+3. Start development server
+```bash
 npm run dev
+```
+
+## Build and Preview
+```bash
+npm run build
+npm run preview
+```
+
+## Environment Variables
+
+The app reads:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+If these are missing or invalid:
+- Public frontend still loads
+- Supabase-related features are disabled gracefully
+
+## Admin Panel Notes
+
+The admin route is:
+- `/#/admin`
+
+For full admin functionality, make sure Supabase is configured and the required table/storage bucket exists.
+
+## Deployment
+
+GitHub Actions workflow file:
+- `.github/workflows/deploy.yml`
+
+Set these repository secrets before deployment:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
