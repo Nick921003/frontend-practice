@@ -1,7 +1,8 @@
 <template>
   <div class="layout">
     <nav 
-      class="navbar" 
+      class="navbar"
+      :class="{ 'is-hidden': isNavHidden }"
       @mouseenter="handleNavMouseEnter"
       @mouseleave="handleNavMouseLeave"
     >
@@ -197,6 +198,7 @@ const isNavPinned = ref(false)
 const isMobileMode = ref(false)
 const canHover = ref(true)
 const isNavOpen = computed(() => isNavExpanded.value || isNavPinned.value)
+const isNavHidden = ref(false) // 滾動時隱藏導航欄
 
 let mobileMediaQuery = null
 let hoverMediaQuery = null
@@ -320,6 +322,31 @@ onMounted(() => {
 
   fetchPublicProjects()
   typeInterval = setTimeout(typeText, 500)
+
+  // --- 滾動監聽邏輯 ---
+  let lastScrollTop = 0
+  const handleScroll = () => {
+    if (!isMobileMode.value) return // 只在行動版本生效
+    
+    const currentScroll = window.scrollY || document.documentElement.scrollTop
+    
+    // 如果導航欄展開中，不要隱藏
+    if (isNavExpanded.value) {
+      isNavHidden.value = false
+      lastScrollTop = currentScroll
+      return
+    }
+    
+    // 向下滑動時隱藏，向上滑動時顯示
+    if (currentScroll > lastScrollTop) {
+      isNavHidden.value = true
+    } else {
+      isNavHidden.value = false
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll
+  }
+  
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
@@ -331,6 +358,7 @@ onUnmounted(() => {
     hoverMediaQuery.removeEventListener('change', updateInputMode)
   }
 
+  window.removeEventListener('scroll', handleScroll)
   clearTimeout(typeInterval)
 })
 </script>
@@ -340,6 +368,7 @@ onUnmounted(() => {
 .layout {
   position: relative;
   min-height: 100vh;
+  scroll-padding-top: 110px; /* 為粘性導航欄預留空間 */
 }
 
 .layout::before {
@@ -359,6 +388,11 @@ onUnmounted(() => {
   width: min(1080px, calc(100% - 30px));
   margin: 0 auto;
   padding-bottom: 20px; /* 增加透明感應區，避免滑鼠一離開就立刻收起 */
+  transition: transform 0.3s var(--ease-standard);
+}
+
+.navbar.is-hidden {
+  transform: translateY(-100%);
 }
 
 /* --- 動態展開/收合的核心 --- */
@@ -767,6 +801,10 @@ onUnmounted(() => {
 }
 
 @media (max-width: 620px) {
+  .layout {
+    scroll-padding-top: 90px; /* 行動裝置上調整為較小值 */
+  }
+
   .navbar {
     top: 10px;
     width: calc(100% - 20px);
