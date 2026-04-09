@@ -134,13 +134,14 @@ const { locale, t } = useLocale()
   margin: 0 0 24px;
   min-height: 34px;
   font-size: var(--text-xl);
-  color: var(--accent-color);
+  color: var(--primary-deep);
   font-weight: 600;
 }
 
 .typing-text {
   font-family: 'Archivo', 'Space Grotesk', sans-serif;
   letter-spacing: 0.04em;
+  color: var(--primary-deep);
 }
 
 .cursor {
