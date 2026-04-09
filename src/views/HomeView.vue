@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import AboutSection from '../components/AboutSection.vue'
 import ContentTabs from '../components/ContentTabs.vue'
@@ -57,6 +56,7 @@ const selectTab = (tab) => {
   position: relative;
   min-height: 100vh;
   scroll-padding-top: 110px;
+  animation: pageReveal 0.6s ease both;
 }
 
 .layout::before {
@@ -64,15 +64,37 @@ const selectTab = (tab) => {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.2;
-  background-image: linear-gradient(to right, rgba(70, 67, 52, 0.06) 1px, transparent 1px);
+  opacity: 0.15;
+  background-image: linear-gradient(to right, rgba(24, 24, 27, 0.05) 1px, transparent 1px);
   background-size: 52px 100%;
 }
 
+.layout::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 16%, rgba(146, 64, 14, 0.06), transparent 33%),
+    radial-gradient(circle at 85% 9%, rgba(24, 24, 27, 0.04), transparent 29%);
+}
+
 .content-container {
-  width: min(1080px, calc(100% - 34px));
-  margin: 24px auto 40px;
+  width: min(1120px, calc(100% - 34px));
+  margin: 48px auto 64px;
   min-height: calc(100vh - 240px);
+}
+
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-enter-active,
@@ -94,6 +116,7 @@ const selectTab = (tab) => {
   .content-container {
     width: calc(100% - 20px);
     margin-top: 16px;
+    margin-bottom: 38px;
   }
 }
 </style>

@@ -50,12 +50,17 @@ export function useNavigation() {
   }
 
   const handleScroll = () => {
-    if (!isMobileMode.value) return // 只在行動版本生效
-    
     const currentScroll = window.scrollY || document.documentElement.scrollTop
     
     // 如果導航欄展開中，不要隱藏
     if (isNavExpanded.value) {
+      isNavHidden.value = false
+      lastScrollTop = currentScroll
+      return
+    }
+    
+    // 桌機版本：釘住時不隱藏
+    if (!isMobileMode.value && isNavPinned.value) {
       isNavHidden.value = false
       lastScrollTop = currentScroll
       return
@@ -70,6 +75,16 @@ export function useNavigation() {
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll
   }
 
+  const handleMouseMove = (e) => {
+    // 只在桌機版本且未釘住時生效
+    if (isMobileMode.value || isNavPinned.value) return
+    
+    // 鼠標在頂部 50px 內時顯示導航欄
+    if (e.clientY < 50) {
+      isNavHidden.value = false
+    }
+  }
+
   onMounted(() => {
     mobileMediaQuery = window.matchMedia('(max-width: 920px)')
     hoverMediaQuery = window.matchMedia('(hover: hover)')
@@ -77,6 +92,7 @@ export function useNavigation() {
     mobileMediaQuery.addEventListener('change', updateInputMode)
     hoverMediaQuery.addEventListener('change', updateInputMode)
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
   })
 
   onUnmounted(() => {
@@ -87,6 +103,7 @@ export function useNavigation() {
       hoverMediaQuery.removeEventListener('change', updateInputMode)
     }
     window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('mousemove', handleMouseMove)
   })
 
   return {

@@ -103,10 +103,23 @@ const closeLightbox = () => {
   document.body.style.overflow = ''
 }
 
+const escapeHtml = (value) => {
+  if (!value) return ''
+
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
 const formattedDetails = computed(() => {
   if (!props.project.details) return ''
   
-  return props.project.details.replace(
+  const safeDetails = escapeHtml(props.project.details)
+
+  return safeDetails.replace(
     /【(.*?)】/g, 
     '<span class="highlight-title">【$1】</span><br>'
   )
@@ -115,20 +128,21 @@ const formattedDetails = computed(() => {
 
 <style scoped>
 .card {
+  position: relative;
   margin-bottom: 28px;
   padding: var(--card-padding);
   border-radius: var(--card-radius);
   border: var(--card-border);
-  background: linear-gradient(140deg, rgba(255, 253, 248, 0.96), rgba(250, 245, 234, 0.88));
-  box-shadow: 0 12px 28px rgba(52, 48, 36, 0.09);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 251, 0.9));
+  box-shadow: var(--card-shadow);
   transition: transform var(--duration-base) ease, box-shadow var(--duration-base) ease, border-color var(--duration-base) ease;
   text-align: left;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 35px rgba(42, 42, 32, 0.13);
-  border-color: rgba(47, 93, 80, 0.35);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(146, 64, 14, 0.35);
 }
 
 .card-header {
@@ -146,7 +160,7 @@ const formattedDetails = computed(() => {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Archivo', sans-serif;
 }
 
 .period {
@@ -175,11 +189,9 @@ const formattedDetails = computed(() => {
 .short-description {
   font-size: var(--text-md);
   font-weight: 600;
-  color: #47695c;
+  color: var(--text-main);
   margin-bottom: var(--space-3);
   line-height: 1.5;
-  border-left: 3px solid rgba(47, 93, 80, 0.4);
-  padding-left: var(--space-3);
   text-align: left;
 }
 
@@ -221,14 +233,14 @@ const formattedDetails = computed(() => {
   left: 0;
   width: 100%;
   height: 60px;
-  background: linear-gradient(to bottom, rgba(255, 253, 248, 0), rgba(255, 251, 242, 1));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   pointer-events: none;
 }
 
 .expand-btn {
   gap: 2px;
-  color: var(--primary-color);
-  border-color: rgba(47, 93, 80, 0.28);
+  color: var(--primary);
+  border-color: rgba(146, 64, 14, 0.4);
   background: transparent;
   border-radius: var(--radius-pill);
   padding: var(--btn-padding-y) var(--btn-padding-x);
@@ -237,18 +249,18 @@ const formattedDetails = computed(() => {
 }
 
 .expand-btn:hover {
-  color: #f7f2e8;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  color: #ffffff;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 :deep(.highlight-title) {
   display: inline-block;
-  color: var(--primary-color);
+  color: var(--primary-deep);
   font-weight: 700;
   margin-top: 12px;
   margin-bottom: 4px;
-  background-color: var(--primary-soft);
+  background-color: rgba(146, 64, 14, 0.12);
   padding: 2px 8px;
   border-radius: 6px;
   font-size: 0.92rem;
@@ -265,19 +277,20 @@ const formattedDetails = computed(() => {
   display: flex;
   align-items: center;
   gap: 2px;
-  background-color: rgba(236, 229, 216, 0.65);
-  color: #3a4a43;
+  background-color: rgba(146, 64, 14, 0.15);
+  color: var(--primary-deep);
   padding: 7px 14px;
   border-radius: var(--radius-pill);
   font-size: var(--text-xs);
-  font-weight: 500;
-  font-family: 'Manrope', 'Noto Serif TC', sans-serif;
+  font-weight: 600;
+  font-family: 'Archivo', 'Space Grotesk', sans-serif;
   transition: all var(--duration-fast) ease;
-  border: 1px solid rgba(47, 93, 80, 0.18);
+  border: 1px solid rgba(146, 64, 14, 0.3);
 }
 
 .skill-tag:hover {
-  background-color: rgba(215, 228, 223, 0.8);
+  background-color: rgba(146, 64, 14, 0.25);
+  border-color: rgba(146, 64, 14, 0.5);
   transform: translateY(-2px);
 }
 
@@ -290,17 +303,17 @@ const formattedDetails = computed(() => {
 .link-btn {
   padding: 6px 14px;
   border-radius: var(--radius-sm);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Archivo', 'Space Grotesk', sans-serif;
 }
 
 .github-btn {
-  background-color: #1e293b;
+  background-color: #6b5146;
   color: #f8fafc;
-  border: 1px solid #0f172a;
+  border: 1px solid #78350f;
 }
 
 .github-btn:hover {
-  background-color: #334155;
+  background-color: #78350f;
   transform: translateY(-2px);
 }
 
@@ -311,7 +324,7 @@ const formattedDetails = computed(() => {
 }
 
 .demo-btn:hover {
-  background-color: rgba(47, 93, 80, 0.08);
+  background-color: rgba(146, 64, 14, 0.08);
   transform: translateY(-2px);
 }
 
@@ -319,23 +332,23 @@ const formattedDetails = computed(() => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 14px;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .gallery-thumb {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 18px rgba(26, 26, 20, 0.13);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 20px rgba(26, 26, 20, 0.13);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   cursor: zoom-in;
 }
 
 .gallery-thumb:hover {
-  transform: scale(1.015);
-  box-shadow: 0 14px 24px rgba(17, 17, 12, 0.2);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 28px rgba(17, 17, 12, 0.23);
 }
 
 @media (max-width: 620px) {
@@ -360,7 +373,7 @@ const formattedDetails = computed(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(20, 24, 22, 0.88);
+  background: rgba(78, 35, 8, 0.88);
   display: flex;
   justify-content: center;
   align-items: center;

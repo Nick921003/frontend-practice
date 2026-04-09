@@ -54,7 +54,16 @@
       </div>
       
       <div class="about-image-wrapper">
-        <img :src="getImageUrl('/images/profile.webp')" alt="彭俊瑋的個人照" class="profile-image" />
+        <img
+          :src="getImageUrl('/images/profile.webp')"
+          alt="彭俊瑋的個人照"
+          class="profile-image"
+          width="360"
+          height="480"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
         <div class="image-backdrop"></div>
       </div>
     </div>
@@ -89,11 +98,25 @@ const { locale, t } = useLocale()
 }
 
 .about-section {
+  position: relative;
   border: var(--card-border);
   border-radius: var(--radius-xl);
   padding: clamp(24px, 4vw, 48px);
-  background: linear-gradient(145deg, rgba(255, 253, 248, 0.92), rgba(252, 247, 237, 0.78));
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(250, 250, 251, 0.78));
   box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: -24px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(146, 64, 14, 0.1), rgba(146, 64, 14, 0));
+  pointer-events: none;
 }
 
 .about-grid {
@@ -111,12 +134,12 @@ const { locale, t } = useLocale()
   margin: 0 0 24px;
   min-height: 34px;
   font-size: var(--text-xl);
-  color: var(--primary-color);
+  color: var(--accent-color);
   font-weight: 600;
 }
 
 .typing-text {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Archivo', 'Space Grotesk', sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -124,7 +147,7 @@ const { locale, t } = useLocale()
   display: inline-block;
   width: 2px;
   margin-left: 3px;
-  background: var(--primary-color);
+  background: var(--accent-color);
   color: transparent;
   animation: blink 0.95s infinite;
 }
@@ -167,7 +190,13 @@ const { locale, t } = useLocale()
   border-radius: 18px;
   object-fit: cover;
   box-shadow: 0 24px 45px rgba(36, 42, 39, 0.2);
-  transform: rotate(-1.4deg);
+  transform: rotate(-1.2deg);
+  transition: transform var(--duration-base) ease, box-shadow var(--duration-base) ease;
+}
+
+.about-image-wrapper:hover .profile-image {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 28px 52px rgba(36, 42, 39, 0.24);
 }
 
 .image-backdrop {
@@ -175,17 +204,17 @@ const { locale, t } = useLocale()
   z-index: 1;
   inset: 14px -16px -14px 16px;
   border-radius: 18px;
-  background: linear-gradient(160deg, rgba(47, 93, 80, 0.24), rgba(170, 131, 84, 0.3));
+  background: linear-gradient(160deg, rgba(146, 64, 14, 0.16), rgba(120, 53, 15, 0.12));
 }
 
 .skills-showcase {
   margin-top: 28px;
   padding-top: 24px;
-  border-top: 1px dashed rgba(47, 93, 80, 0.2);
+  border-top: 1px dashed rgba(146, 64, 14, 0.2);
 }
 
 .skills-title {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Space Grotesk', 'Archivo', sans-serif;
   font-size: var(--text-lg);
   color: var(--text-main);
   margin: 0 0 16px;
@@ -216,11 +245,11 @@ const { locale, t } = useLocale()
 .chip {
   background-color: var(--paper);
   border: 1px solid var(--line);
-  color: var(--primary-color);
+  color: var(--primary-deep);
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   font-size: var(--text-xs);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Archivo', 'Space Grotesk', sans-serif;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -229,9 +258,9 @@ const { locale, t } = useLocale()
 }
 
 .chip:hover {
-  background-color: rgba(47, 93, 80, 0.08);
-  border-color: rgba(47, 93, 80, 0.35);
-  box-shadow: 0 6px 14px rgba(47, 93, 80, 0.12);
+  background-color: rgba(146, 64, 14, 0.08);
+  border-color: rgba(146, 64, 14, 0.35);
+  box-shadow: 0 6px 14px rgba(146, 64, 14, 0.12);
   animation: chipBounce 0.35s ease;
 }
 

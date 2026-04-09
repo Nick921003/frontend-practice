@@ -41,15 +41,20 @@ const copyEmail = async () => {
 <style scoped>
 .footer {
   margin-top: 44px;
-  padding: 44px var(--space-5) 36px;
-  background: linear-gradient(180deg, rgba(255, 252, 245, 0.18), rgba(255, 252, 245, 0.72));
-  border-top: 1px solid var(--line);
+  padding: 52px var(--space-5) 40px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.82));
+  border-top: 1px solid rgba(228, 228, 231, 0.8);
   text-align: center;
 }
 
 .footer-container {
   max-width: 800px;
   margin: 0 auto;
+  padding: 26px 18px;
+  border: 1px solid rgba(228, 228, 231, 0.85);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
 }
 
 .footer-title {
@@ -67,16 +72,16 @@ const copyEmail = async () => {
 
 .social-btn {
   padding: 10px var(--space-5);
-  background-color: rgba(255, 253, 248, 0.85);
+  background-color: rgba(255, 255, 255, 0.96);
   color: var(--text-main);
   transition: all var(--duration-base) ease;
-  border: 1px solid rgba(47, 93, 80, 0.24);
-  font-family: 'Manrope', 'Noto Serif TC', sans-serif;
+  border: 1px solid rgba(146, 64, 14, 0.24);
+  font-family: 'Space Grotesk', 'Archivo', sans-serif;
 }
 
 .social-btn:hover {
-  background-color: var(--primary-color);
-  color: #f9f3e8;
+  background-color: var(--accent-color);
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -85,14 +90,14 @@ const copyEmail = async () => {
 }
 
 .email-btn.copied {
-  background-color: #2f5d50;
-  color: #f6f3ea;
-  border-color: #2f5d50;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border-color: var(--accent-color);
 }
 
 .copyright {
   font-size: var(--text-sm);
   color: var(--text-muted);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Archivo', 'Space Grotesk', sans-serif;
 }
 </style>

@@ -414,7 +414,7 @@ textarea { resize: vertical; min-height: 100px; }
 /* 按鈕與狀態 */
 .form-actions { display: flex; gap: 10px; margin-top: 20px; }
 .submit-btn { flex: 1; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
-.submit-btn:hover:not(:disabled) { background: #2563eb; }
+.submit-btn:hover:not(:disabled) { background: #B45309; }
 .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
 .cancel-btn { padding: 12px 20px; background: #f1f5f9; color: #475569; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
 .cancel-btn:hover { background: #e2e8f0; }
@@ -432,7 +432,7 @@ textarea { resize: vertical; min-height: 100px; }
 .project-item:last-child { border-bottom: none; }
 .project-info h4 { margin: 5px 0 0 0; color: #1e293b; font-size: 1.05em; line-height: 1.4; }
 .project-tag { font-size: 0.75em; font-weight: 700; padding: 3px 8px; border-radius: 12px; }
-.tag-portfolio { background: #dbeafe; color: #1d4ed8; }
+.tag-portfolio { background: #FEF3C7; color: #92400e; }
 .tag-experience { background: #fef3c7; color: #b45309; }
 
 .project-actions { display: flex; gap: 8px; }

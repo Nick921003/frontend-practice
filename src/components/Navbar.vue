@@ -6,44 +6,48 @@
     @mouseleave="handleNavMouseLeave"
   >
     <div class="nav-container" :class="{ 'is-expanded': isNavOpen }">
-      <div
+      <button
         class="nav-header"
-        role="button"
-        tabindex="0"
+        type="button"
         :aria-expanded="String(isNavOpen)"
+        aria-controls="primary-navigation"
         :aria-label="t.menu"
         @click="toggleNavOnClick"
-        @keydown.enter.prevent="toggleNavOnClick"
-        @keydown.space.prevent="toggleNavOnClick"
       >
         <div class="logo">彭俊瑋 Chun-Wei Peng</div>
         <div class="menu-indicator" v-show="isMobileMode || !isNavOpen">
-          <span class="menu-icon">{{ isNavOpen ? '✕' : '☰' }}</span>
+          <span class="menu-icon" aria-hidden="true">
+            <X v-if="isNavOpen" :size="16" />
+            <Menu v-else :size="16" />
+          </span>
           {{ t.menu }}
         </div>
-      </div>
+      </button>
       
-      <div class="nav-links">
+      <div id="primary-navigation" class="nav-links">
         <div class="nav-primary">
           <button 
             :class="['btn', activeTab === 'about' ? 'btn-primary' : 'btn-ghost', 'nav-btn']"
             @click="handleSelectTab('about')"
+            :aria-current="activeTab === 'about' ? 'page' : undefined"
           >{{ t.about }}</button>
           
           <button 
             :class="['btn', activeTab === 'portfolio' ? 'btn-primary' : 'btn-ghost', 'nav-btn']"
             @click="handleSelectTab('portfolio')"
+            :aria-current="activeTab === 'portfolio' ? 'page' : undefined"
           >{{ t.portfolio }}</button>
           
           <button 
             :class="['btn', activeTab === 'experience' ? 'btn-primary' : 'btn-ghost', 'nav-btn']"
             @click="handleSelectTab('experience')"
+            :aria-current="activeTab === 'experience' ? 'page' : undefined"
           >{{ t.experience }}</button>
         </div>
 
         <div class="nav-secondary">
-          <button class="btn btn-ghost lang-toggle-btn" @click="toggleLanguage">
-            🌐 {{ t.langBtn }}
+          <button class="btn btn-ghost lang-toggle-btn" @click="toggleLanguage" :aria-label="t.langBtn">
+            <Languages :size="16" aria-hidden="true" /> {{ t.langBtn }}
           </button>
           <router-link to="/admin" class="btn btn-ghost admin-link">{{ t.admin }}</router-link>
         </div>
@@ -53,7 +57,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { Languages, Menu, X } from 'lucide-vue-next'
 import { useNavigation } from '../composables/useNavigation'
 import { useLocale } from '../composables/useLocale'
 
@@ -118,8 +122,8 @@ const handleSelectTab = (tab) => {
   border-radius: var(--radius-xl);
   padding: var(--space-3) var(--space-4);
   backdrop-filter: blur(10px);
-  background: var(--surface-1);
-  box-shadow: 0 8px 22px rgba(72, 62, 42, 0.1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.87), rgba(250, 250, 251, 0.7));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   max-height: 58px;
   transition: max-height 0.4s var(--ease-standard), background-color var(--duration-base) ease;
@@ -128,7 +132,21 @@ const handleSelectTab = (tab) => {
 .nav-container.is-expanded {
   max-height: 300px;
   background: var(--surface-2);
-  box-shadow: 0 12px 28px rgba(72, 62, 42, 0.15);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.nav-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(146, 64, 14, 0.06), rgba(120, 53, 15, 0.04));
+  opacity: 0;
+  transition: opacity var(--duration-base) ease;
+}
+
+.nav-container.is-expanded::after {
+  opacity: 1;
 }
 
 .nav-header {
@@ -137,12 +155,17 @@ const handleSelectTab = (tab) => {
   align-items: center;
   width: 100%;
   height: 34px;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
   border-radius: 12px;
   cursor: pointer;
+  text-align: left;
 }
 
 .nav-header:focus-visible {
-  outline: 2px solid rgba(47, 93, 80, 0.45);
+  outline: 2px solid rgba(146, 64, 14, 0.4);
   outline-offset: 4px;
 }
 
@@ -150,10 +173,10 @@ const handleSelectTab = (tab) => {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--primary-color);
+  color: var(--primary-deep);
   font-size: var(--text-sm);
   font-weight: 700;
-  opacity: 0.8;
+  opacity: 1;
   padding-right: var(--space-2);
   transition: opacity var(--duration-fast) ease;
 }
@@ -164,12 +187,14 @@ const handleSelectTab = (tab) => {
 }
 
 .logo {
-  font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+  font-family: 'Space Grotesk', 'Archivo', sans-serif;
   font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   color: var(--text-main);
   white-space: nowrap;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-container.is-expanded .nav-header:focus-visible {
@@ -186,6 +211,8 @@ const handleSelectTab = (tab) => {
   transform: translateY(-10px);
   transition: opacity var(--duration-base) ease 0.1s, transform var(--duration-base) ease 0.1s;
   pointer-events: none;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-primary,
@@ -211,14 +238,15 @@ const handleSelectTab = (tab) => {
 }
 
 .lang-toggle-btn {
-  background: rgba(215, 228, 223, 0.4) !important;
-  color: var(--primary-color) !important;
-  border: 1px solid rgba(47, 93, 80, 0.2) !important;
+  background: rgba(146, 64, 14, 0.12) !important;
+  color: var(--primary-deep) !important;
+  border: 1px solid rgba(146, 64, 14, 0.25) !important;
 }
 
 .lang-toggle-btn:hover {
-  background: var(--primary-color) !important;
-  color: #fff !important;
+  background: rgba(146, 64, 14, 0.2) !important;
+  color: var(--text-main) !important;
+  border-color: rgba(146, 64, 14, 0.4) !important;
 }
 
 @media (min-width: 921px) {
